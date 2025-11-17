@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "your-firebase-project-id",
+    "csipkey-weather-2025": "weatherwatcher-44e43"
+  },
+  "targets": {},
+  "etags": {}
+}

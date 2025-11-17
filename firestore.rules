@@ -1,0 +1,20 @@
+// Firestore rules - adjust for production
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /weather_readings/{doc} {
+      allow read: if true;
+      allow write: if request.auth == null; // only functions should write: but emulation uses admin
+    }
+    match /alerts/{doc} {
+      allow create: if request.auth != null;
+      allow read: if request.auth != null;
+      allow update, delete: if request.auth != null && resource.data.userId == request.auth.uid;
+    }
+    match /fcm_tokens/{doc} {
+      allow create: if true;
+      allow read: if false;
+      allow delete: if request.auth != null && resource.data.userId == request.auth.uid;
+    }
+  }
+}
